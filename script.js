@@ -9,7 +9,7 @@ class Battle {
 class Spaceship extends Battle{
     constructor(){
     super()
-    
+    //Space ship properties
     this.hull=20,
     this.firepower=5,
     this.accuracy=.7;
@@ -28,6 +28,7 @@ class Spaceship extends Battle{
 class Alienships extends Battle {
     constructor(name){
         super();
+        //Alien Ship properties
         this.name=name;
         this.hull=Math.floor(Math.random()*2)+4;
         this.firepower=Math.floor(Math.random()*2)+3;
@@ -38,18 +39,19 @@ class Alienships extends Battle {
     {
         console.log("Alien ship Attack Back to Spaceship")
         spaceship1.hull = spaceship1.hull- this.firepower;
+        console.log("Space Ship updated Hull = "+spaceship1.hull);
     }else{
 
         console.log(this.name + " got destroyed")
         return;
     }
     this.accuracy = (Math.random()*.2)+.6;
+    console.log(this.name+ " new accuracy=" +this.accuracy);
     this.targetSpaceship(spceShip);
    }
     
 }
 let spaceship1=new Spaceship();
-let alienship1=new Alienships("Ship1")
 
 for(let i =0; i<6; i++){
     
