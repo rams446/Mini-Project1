@@ -34,8 +34,11 @@ class Alienships extends Battle {
         this.firepower=Math.floor(Math.random()*2)+3;
         this.accuracy=(Math.random()*.2)+.6;
     }
-   targetSpaceship(spceShip){
-    if(this.accuracy>spceShip.accuracy)
+   targetSpaceship(spaceship1){
+    if(spaceship1.hull<=0){
+        return;
+    }
+    if(this.accuracy>spaceship1.accuracy)
     {
         console.log("Alien ship Attack Back to Spaceship")
         spaceship1.hull = spaceship1.hull- this.firepower;
@@ -47,40 +50,46 @@ class Alienships extends Battle {
     }
     this.accuracy = (Math.random()*.2)+.6;
     console.log(this.name+ " new accuracy=" +this.accuracy);
-    this.targetSpaceship(spceShip);
+    this.targetSpaceship(spaceship1);
    }
     
 }
-let spaceship1=new Spaceship();
 
-for(let i =0; i<6; i++){
+let clickButton = document.querySelector('button');
+
+clickButton.addEventListener('click', e=>{
+    console. clear();
+    let spaceship1=new Spaceship();
+    for(let i =0; i<6; i++){
     
-    console.log("Space Ship hull: "+spaceship1.hull);
-    console.log("Space Ship Fire Power: "+spaceship1.firepower);
-    console.log("Space Ship Accuracy: "+spaceship1.accuracy);
-
-    j = i +1;
-    let alienship1=new Alienships("Alien Ship"+j);
-    console.log(alienship1.name+" hull: "+alienship1.hull);
-    console.log(alienship1.name+" Fire Power: "+alienship1.firepower);
-    console.log(alienship1.name+" Accuracy: "+alienship1.accuracy);
-    if(alienship1.accuracy > spaceship1.accuracy){
-        alienship1.targetSpaceship(spaceship1);
+        console.log("Space Ship hull: "+spaceship1.hull);
+        console.log("Space Ship Fire Power: "+spaceship1.firepower);
+        console.log("Space Ship Accuracy: "+spaceship1.accuracy);
+    
+        j = i +1;
+        let alienship1=new Alienships("Alien Ship"+j);
+        console.log(alienship1.name+" hull: "+alienship1.hull);
+        console.log(alienship1.name+" Fire Power: "+alienship1.firepower);
+        console.log(alienship1.name+" Accuracy: "+alienship1.accuracy);
+        if(alienship1.accuracy > spaceship1.accuracy){
+            alienship1.targetSpaceship(spaceship1);
+        }
+        else {
+            spaceship1.targetAlienship(alienship1);
+        }
+    
+        if(spaceship1.hull <= 0){
+            break;
+        }
     }
-    else {
-        spaceship1.targetAlienship(alienship1);
-    }
-
+    
     if(spaceship1.hull <= 0){
-        break;
+        console.log("Space Ship destroyed, You lost")
+    }else {
+        console.log("Alien Ships destroyed, You Won")
     }
-}
+});
 
-if(spaceship1.hull <= 0){
-    console.log("Space Ship destroyed, You lost")
-}else {
-    console.log("Alien Ships destroyed, You Won")
-}
 
 
 
